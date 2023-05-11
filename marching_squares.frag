@@ -1,10 +1,14 @@
+#version 300 es
+
 #ifdef GL_ES
 precision mediump float;
 #endif
 
-uniform vec2 resolution;
-uniform float time;
-uniform vec4 mouse;
+uniform vec2 u_resolution;
+uniform float u_time;
+uniform vec4 u_mouse;
+
+out vec4 FragColor;
 
 float count = 30.0;
 float freq = 2. / 1.;
@@ -18,7 +22,7 @@ float paintGrid(vec2 uv) {
 }
 
 float rndTime() {
-    return mod(floor(time * freq), loop);
+    return mod(floor(u_time * freq), loop);
 }
 
 float random (vec2 uv) {
@@ -115,8 +119,8 @@ float getState(vec2 uv, float[4] rnd) {
 
 void main() {
 
-    vec2 uv = gl_FragCoord.xy / resolution.xy;
-    uv.x = uv.x * resolution.x / resolution.y;
+    vec2 uv = gl_FragCoord.xy / u_resolution.xy;
+    uv.x = uv.x * u_resolution.x / u_resolution.y;
 
     uv *= count;
 
@@ -131,5 +135,5 @@ void main() {
     color.x *= rnd[0];
     color += (1. - color) * getState(uv, rnd) * vec3(1., 1., 0.);
 
-    gl_FragColor = vec4(color, 1.);
+    FragColor = vec4(color, 1.);
 }
