@@ -2,4 +2,4 @@
 
 ## `Marching Squares`
 
-![marching_squares](marching_squares.png)
+![marching_squares](marching_squares.gif)
